@@ -1,0 +1,307 @@
+.header {
+	position: absolute;
+	width: 100%;
+	top: 0;
+	left: 0;
+	&__wrapper {
+		position: fixed;
+		width: 100%;
+		top: 0;
+		left: 0;
+		z-index: 50;
+	}
+
+	&__container {
+	}
+
+	&__body {
+		display: flex;
+		align-items: center;
+		padding: 5px 0;
+		min-height: 125px;
+	}
+
+	&__main {
+		display: flex;
+		align-items: center;
+		flex: 0 0 494/1240 * 100%;
+	}
+
+	&__logo {
+		font-size: 24px;
+		font-weight: 700;
+		line-height: 29 / 24 * 100%;
+	}
+
+	&__menu {
+	}
+
+	&__search {
+		@include adaptiv-value("padding-right", 32, 15, 1);
+		// от 992px и выше, поиск растягивается на всю ширину и придавливает блок acrions, ниже 992px поиск скрываем
+		@media (min-width: 992px){
+			  flex: 1 1 100%;
+		}
+	}
+
+	&__actions {
+	}
+}
+
+.menu {
+	flex: 0 1 420px;
+	&__body {
+	}
+
+	&__list {
+		@media (min-width: 768px){
+			display: flex;
+			flex-wrap: wrap;
+			justify-content: space-evenly;
+		}
+	}
+
+	&__item {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		flex-wrap: wrap;
+		margin: 0px 3px;
+		padding: 5px 0px;
+		position: relative;
+		@media (any-hover: hover){ //Стили будут работать на устройствах, где есть мышь
+			  &:hover{
+				.menu__sub-list {
+					transform: translate(0px, 0px);
+					opacity: 1;
+					visibility: visible;
+					pointer-events: auto;
+				}
+				.menu__arrow {
+					transform: rotate(-180deg);
+				}
+				.menu__arrow,
+				.menu__link {
+					color: $orangeColor;
+				}
+			  }
+		}
+		@media (min-width: 768px){
+			  &._hover {
+				.menu__sub-list {
+					transform: translate(0px, 0px);
+					opacity: 1;
+					visibility: visible;
+					pointer-events: auto;
+				}
+				.menu__arrow {
+					transform: rotate(-180deg);
+				}
+				.menu__arrow,
+				.menu__link {
+					color: $orangeColor;
+				}
+			  }
+			}
+		}
+
+	&__link {
+		font-weight: 500;
+		color: inherit;
+		transition: color 0.3s ease 0s;
+	}
+
+	&__arrow {
+		margin: 0px 0px 0px 8px;
+		transition: all 0.3s ease 0s;
+		font-size: 8px;
+	}
+
+	&__sub-list {
+		position: relative;
+		background-color: $orangeColor;
+		padding: 15px;
+		flex: 1 1 100%;
+		@media (min-width: 768px){
+			//Скрываем меню
+			opacity: 0;
+			visibility: hidden;
+			transform: translate(0px, 10px);
+			transition: all 0.3s ease 0s;
+			min-width: 200px;
+			position: absolute;
+			left: 0;
+			top: 100%;
+			z-index: 5;
+			pointer-events: none;
+		}
+	}
+
+	&__sub-item {
+		&:not(:last-child) { //Отступ вниз, для всех элементов, кроме последнего
+			margin: 0px 0px 5px 0px;
+		}
+	}
+
+	&__sub-link {
+		color: #fff;
+		line-height: 120%;
+	}
+}
+.search-form {
+max-width: 473px;
+	&__icon {
+		display: none;
+	}
+
+	&__item {
+		display: flex;
+		align-items: center;
+		background-color: #fff;
+	}
+
+	&__btn {
+		flex: 0 0 45px;
+		height: 45px;
+		font-size: 15px;
+		color: #333;
+	}
+
+	&__input {
+		font-size: 14px;
+		color: $darkGrayColor;
+		width: 100%;
+		padding: 0px 20px 0px 0px;
+	}
+}
+.actions-header {
+	position: relative;
+	z-index: 5;
+	// Ставим элементы в ряд, независимо от того, сколько их
+	display: grid;
+	grid-template-columns: auto;
+	grid-auto-flow: column;
+	align-items: center;
+	// Когда будем уменьшать экран, отступ между элементами, будет очень большой. Поэтому используем адаптивное свойство.
+	// Миксин, который встроен в шаблон, позволяет указать изначальное значение любого свойства и конечное значение на 320px. 
+	// Это свойство будет динамически менятся. 32px стартовое значение, в конечном значении это будет 15px, и параметр 1 говорит о том, что 
+	// необходимо начать изменять это свойство, в тот момент, когда ширина экрана меньше чем ограничивающий контейнер.
+	@include adaptiv-value("gap", 32, 15, 1);
+	&__item {
+
+		&_favorites {
+			color: #262f56;
+			font-size: 24px;
+			transition: color 0.3s ease 0s;
+			@media (any-hover: hover){
+				 &:hover { 
+				  color: $orangeColor;
+			  } 
+			}
+		}
+
+		&_user {
+		}
+	}
+}
+.cart-header {
+
+	&__icon {
+		color: #262f56;
+		font-size: 24px;
+		transition: color 0.3s ease 0s;
+		position: relative;
+		display: block;
+		@media (any-hover: hover){
+			 &:hover { 
+			  color: $orangeColor;
+		  } 
+		}
+		span {
+			position: absolute;
+			width: 20px;
+			height: 20px;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			top: -10px;
+			right: -10px;
+			border-radius: 50%;
+			background-color: $orangeColor;
+			color: #fff;
+			font-size: 12px;
+		}
+	}
+	&__body {
+	}
+
+	&__list {
+	}
+}
+.cart-list {
+}
+.icon-menu {
+}
+
+
+// =============================================================
+
+// Стиль иконки бургера
+.icon-menu {
+	display: none;
+	position: sticky;
+	flex: 0 0 20px;
+	height: 14px;
+	cursor: pointer;
+	z-index: 5;
+}
+
+.icon-menu span {
+	position: absolute;
+	top: 6px;
+	left: 0px;
+	width: 100%;
+	height: 2px;
+	background-color: #FCA01F;
+	-webkit-transition: all 0.3s ease 0s;
+	-moz-transition: all 0.3s ease 0s;
+	-ms-transition: all 0.3s ease 0s;
+	-o-transition: all 0.3s ease 0s;
+	transition: all 0.3s ease 0s;
+}
+
+.icon-menu span:first-child {
+	top: 0px;
+}
+
+.icon-menu span:last-child {
+	top: auto;
+	bottom: 0px;
+}
+
+.icon-menu.active span {
+	-moz-transform: scale(0);
+	-ms-transform: scale(0);
+	-webkit-transform: scale(0);
+	-o-transform: scale(0);
+	transform: scale(0);
+}
+
+.icon-menu.active span:first-child {
+	-moz-transform: rotate(-45deg);
+	-ms-transform: rotate(-45deg);
+	-webkit-transform: rotate(-45deg);
+	-o-transform: rotate(-45deg);
+	transform: rotate(-45deg);
+	top: 7px;
+}
+
+.icon-menu.active span:last-child {
+	-moz-transform: rotate(45deg);
+	-ms-transform: rotate(45deg);
+	-webkit-transform: rotate(45deg);
+	-o-transform: rotate(45deg);
+	transform: rotate(45deg);
+	bottom: 5px;
+}
+
